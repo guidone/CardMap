@@ -1,1 +1,1134 @@
-[]
+[
+    {
+        "id": "dde5902e.a2c9d",
+        "type": "tab",
+        "label": "CardBot Main",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "336e466f.27575a",
+        "type": "subflow",
+        "name": "Query Restaurant",
+        "info": "Query restaurant nearby, results payload\n\n[\n  {\n    name: 'Restaurant name' \n  },\n  // ...\n]",
+        "in": [
+            {
+                "x": 180,
+                "y": 200,
+                "wires": [
+                    {
+                        "id": "b91ca546.7d52f8"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 680,
+                "y": 200,
+                "wires": [
+                    {
+                        "id": "b91ca546.7d52f8",
+                        "port": 0
+                    }
+                ]
+            },
+            {
+                "x": 680,
+                "y": 320,
+                "wires": []
+            }
+        ]
+    },
+    {
+        "id": "4eecbbaf.4cf274",
+        "type": "subflow",
+        "name": "Show restaurant",
+        "info": "Get the 'queryRestaurants' variable and show as buttons",
+        "in": [
+            {
+                "x": 320,
+                "y": 300,
+                "wires": [
+                    {
+                        "id": "bde5c5f7.113728"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 920,
+                "y": 300,
+                "wires": [
+                    {
+                        "id": "bde5c5f7.113728",
+                        "port": 0
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "f03fde26.826cd",
+        "type": "chatbot-telegram-node",
+        "z": "",
+        "botname": "Guidone TEST",
+        "usernames": "",
+        "providerToken": "",
+        "polling": "1000",
+        "store": "",
+        "log": "",
+        "parseMode": ""
+    },
+    {
+        "id": "2f23474c.126db8",
+        "type": "chatbot-dialogflow-token",
+        "z": "",
+        "name": "CardBot"
+    },
+    {
+        "id": "3ecb4316.35e29c",
+        "type": "chatbot-context-store",
+        "z": "",
+        "name": "File",
+        "contextStorage": "plain-file",
+        "contextParams": "{\"path\":\"/web\"}"
+    },
+    {
+        "id": "2e34e345.01be2c",
+        "type": "chatbot-telegram-node",
+        "z": "",
+        "botname": "CardBot TEST",
+        "usernames": "",
+        "providerToken": "",
+        "polling": "1000",
+        "store": "3ecb4316.35e29c",
+        "log": "",
+        "parseMode": ""
+    },
+    {
+        "id": "2cb254d.95a19ac",
+        "type": "chatbot-telegram-receive",
+        "z": "dde5902e.a2c9d",
+        "bot": "2e34e345.01be2c",
+        "botProduction": "",
+        "x": 210,
+        "y": 300,
+        "wires": [
+            [
+                "1b747c43.bf9a64",
+                "cd3da08e.77b53"
+            ]
+        ]
+    },
+    {
+        "id": "4d135b33.8b85a4",
+        "type": "config",
+        "z": "dde5902e.a2c9d",
+        "name": "Configuration",
+        "properties": [
+            {
+                "p": "language",
+                "pt": "global",
+                "to": "it",
+                "tot": "str"
+            }
+        ],
+        "active": true,
+        "x": 220,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "10888fbd.1e1bd",
+        "type": "chatbot-dialogflow",
+        "z": "dde5902e.a2c9d",
+        "dialogflow": "2f23474c.126db8",
+        "language": "en",
+        "debug": true,
+        "variable": "intent",
+        "x": 900,
+        "y": 380,
+        "wires": [
+            [
+                "6756ea1.36d8e14"
+            ],
+            [
+                "6cff748.7f2d88c"
+            ]
+        ]
+    },
+    {
+        "id": "fb6ef42d.3e2778",
+        "type": "function",
+        "z": "dde5902e.a2c9d",
+        "name": "Set language",
+        "func": "var language = context.global.language;\n\nmsg.payload.language = language;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 670,
+        "y": 380,
+        "wires": [
+            [
+                "10888fbd.1e1bd"
+            ]
+        ]
+    },
+    {
+        "id": "6756ea1.36d8e14",
+        "type": "chatbot-rules",
+        "z": "dde5902e.a2c9d",
+        "name": "Switch intents",
+        "rules": [
+            {
+                "type": "isVariable",
+                "variable": "intent",
+                "value": "conversation.query.restaurant"
+            },
+            {
+                "type": "isVariable",
+                "variable": "intent",
+                "value": "conversation.recap"
+            },
+            {
+                "type": "isVariable",
+                "variable": "intent",
+                "value": "conversation.where"
+            },
+            {
+                "type": "catchAll"
+            }
+        ],
+        "outputs": 4,
+        "x": 1140,
+        "y": 340,
+        "wires": [
+            [
+                "f8b53fd8.927b3"
+            ],
+            [
+                "4c70e62c.7aa2e8"
+            ],
+            [
+                "defe5071.1e372"
+            ],
+            [
+                "39af2978.f0a786"
+            ]
+        ]
+    },
+    {
+        "id": "f8b53fd8.927b3",
+        "type": "chatbot-context",
+        "z": "dde5902e.a2c9d",
+        "command": "set",
+        "fieldValue": "restaurant.list",
+        "fieldType": "str",
+        "fieldName": "topic",
+        "x": 1380,
+        "y": 300,
+        "wires": [
+            [
+                "6c691444.4e487c"
+            ]
+        ]
+    },
+    {
+        "id": "b91ca546.7d52f8",
+        "type": "function",
+        "z": "336e466f.27575a",
+        "name": "",
+        "func": "var chat = msg.chat();\nvar mockResults = [\n  {\n    id: '1',\n    name: 'Ristorante da Giggino',\n    address: 'via Zambelli, 12 - Milano'\n  },\n  {\n    id: '2',\n    name: 'Taverna er Murena',\n    address: 'corso Magenta 42 - Milano'\n  },\n  {\n    id: '3',\n    name: 'Ristorante Malox Plus',\n    address: 'via di Qua, 42 - Milano'\n  }\n];\n\nchat.set('queryRestaurants', mockResults)\n  .then(function() {\n    msg.payload = mockResults;\n    node.send(msg);\n  });\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 410,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "415a7c18.461774",
+        "type": "subflow:336e466f.27575a",
+        "z": "dde5902e.a2c9d",
+        "x": 360,
+        "y": 620,
+        "wires": [
+            [
+                "1ed23f28.8a4ef1"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "c495d887.70d8c8",
+        "type": "link in",
+        "z": "dde5902e.a2c9d",
+        "name": "Send Message",
+        "links": [
+            "a1a36112.a267a",
+            "1fa0c89e.4923b7",
+            "e5dbb97f.611078",
+            "cb2b5a9c.7302a8",
+            "8270e1f9.4be2c",
+            "1520a6db.496d29",
+            "ec6aac56.979b9",
+            "40621a82.1f2804",
+            "3886a270.d97cae",
+            "f8ccad8c.032ae",
+            "49d321ab.3b9b7"
+        ],
+        "x": 135,
+        "y": 180,
+        "wires": [
+            [
+                "3010d42d.22774c"
+            ]
+        ]
+    },
+    {
+        "id": "3010d42d.22774c",
+        "type": "chatbot-telegram-send",
+        "z": "dde5902e.a2c9d",
+        "bot": "2e34e345.01be2c",
+        "botProduction": "",
+        "track": false,
+        "outputs": 0,
+        "x": 290,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "a1a36112.a267a",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [
+            "c495d887.70d8c8"
+        ],
+        "x": 995,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "ff305f6c.2abe4",
+        "type": "link in",
+        "z": "dde5902e.a2c9d",
+        "name": "Show restaurant list",
+        "links": [
+            "6c691444.4e487c"
+        ],
+        "x": 155,
+        "y": 620,
+        "wires": [
+            [
+                "415a7c18.461774"
+            ]
+        ]
+    },
+    {
+        "id": "b821a81f.eec4b8",
+        "type": "comment",
+        "z": "dde5902e.a2c9d",
+        "name": "Show restaurant lists",
+        "info": "",
+        "x": 240,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "6c691444.4e487c",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [
+            "ff305f6c.2abe4"
+        ],
+        "x": 1475,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "de26d1b0.17d15",
+        "type": "link in",
+        "z": "dde5902e.a2c9d",
+        "name": "Select restaurant",
+        "links": [
+            "1cc0f40e.35d3ec"
+        ],
+        "x": 155,
+        "y": 840,
+        "wires": [
+            [
+                "2e389fe4.d491"
+            ]
+        ]
+    },
+    {
+        "id": "f2364d15.62725",
+        "type": "comment",
+        "z": "dde5902e.a2c9d",
+        "name": "Select restaurant \"/restaurant <id>\"",
+        "info": "",
+        "x": 280,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "2e389fe4.d491",
+        "type": "function",
+        "z": "dde5902e.a2c9d",
+        "name": "Select and store restaurant",
+        "func": "console.log('selected restaurant', msg.payload)\nvar chat = msg.chat();\nvar args = msg.payload.arguments;\nvar restaurantId = args.length > 0 ? args[0] : null;\n\nchat.get('queryRestaurants')\n  .then(function(restaurants) {\n    console.log('restaurants', restaurants)\n    if (restaurants == null || restaurantId == null) {\n      node.send([null, msg]);\n    } else {\n        console.log('restaurantId', restaurantId)\n      var restaurant = restaurants.find(restaurant => restaurant.id === restaurantId);\n      console.log('restaurtant', restaurant)\n      if (restaurant != null) {\n       chat.set({selectedRestaurant: restaurant, topic: 'restaurant.selected'})\n         .then(function() {\n           node.send([msg, null]); \n         });\n      } else {\n        node.send([null, msg]);  \n      }\n    }\n  });\n\n",
+        "outputs": 2,
+        "noerr": 0,
+        "x": 360,
+        "y": 840,
+        "wires": [
+            [
+                "41a50237.26131c"
+            ],
+            [
+                "f5d10c6c.7b891"
+            ]
+        ]
+    },
+    {
+        "id": "1cc0f40e.35d3ec",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [
+            "de26d1b0.17d15"
+        ],
+        "x": 595,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "1b747c43.bf9a64",
+        "type": "chatbot-rules",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "rules": [
+            {
+                "type": "command",
+                "command": "/restaurant"
+            },
+            {
+                "type": "command",
+                "command": "/recap"
+            },
+            {
+                "type": "command",
+                "command": "/where"
+            },
+            {
+                "type": "catchAll"
+            }
+        ],
+        "outputs": 4,
+        "x": 470,
+        "y": 300,
+        "wires": [
+            [
+                "1cc0f40e.35d3ec"
+            ],
+            [
+                "cbd57a8a.22a4c8"
+            ],
+            [
+                "2214785e.0727f8"
+            ],
+            [
+                "fb6ef42d.3e2778"
+            ]
+        ]
+    },
+    {
+        "id": "41a50237.26131c",
+        "type": "chatbot-message",
+        "z": "dde5902e.a2c9d",
+        "name": "Confirm select",
+        "message": [
+            {
+                "message": "Ottimo, cosa vuoi sapere di {{selectedRestaurant.name}}?"
+            },
+            {
+                "message": "Ok, {{selectedRestaurant.name}}, cosa desideri sapere?"
+            },
+            {
+                "message": "Perfetto! Cosa desideri sapere di {{selectedRestaurant.name}}? "
+            }
+        ],
+        "answer": false,
+        "track": false,
+        "x": 660,
+        "y": 780,
+        "wires": [
+            [
+                "1fa0c89e.4923b7"
+            ]
+        ]
+    },
+    {
+        "id": "1fa0c89e.4923b7",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [
+            "c495d887.70d8c8"
+        ],
+        "x": 795,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "cd3da08e.77b53",
+        "type": "chatbot-debug",
+        "z": "dde5902e.a2c9d",
+        "x": 402.5,
+        "y": 382.5,
+        "wires": []
+    },
+    {
+        "id": "f5d10c6c.7b891",
+        "type": "chatbot-message",
+        "z": "dde5902e.a2c9d",
+        "name": "Errore",
+        "message": [
+            {
+                "message": "Qualcosa e' andato storto..."
+            }
+        ],
+        "answer": false,
+        "track": false,
+        "x": 630,
+        "y": 860,
+        "wires": [
+            [
+                "e5dbb97f.611078"
+            ]
+        ]
+    },
+    {
+        "id": "e5dbb97f.611078",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [
+            "c495d887.70d8c8"
+        ],
+        "x": 815,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "defe5071.1e372",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [
+            "b41f7c82.e37fa"
+        ],
+        "x": 1335,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "b41f7c82.e37fa",
+        "type": "link in",
+        "z": "dde5902e.a2c9d",
+        "name": "Conversation.where",
+        "links": [
+            "defe5071.1e372",
+            "2214785e.0727f8"
+        ],
+        "x": 155,
+        "y": 1160,
+        "wires": [
+            [
+                "585e8012.edb86"
+            ]
+        ]
+    },
+    {
+        "id": "4d8a03ea.cef58c",
+        "type": "comment",
+        "z": "dde5902e.a2c9d",
+        "name": "Handle conversation where",
+        "info": "",
+        "x": 250,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "585e8012.edb86",
+        "type": "chatbot-rules",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "rules": [
+            {
+                "type": "isTopic",
+                "topic": "restaurant.selected"
+            },
+            {
+                "type": "isTopic",
+                "topic": "restaurant.list"
+            },
+            {
+                "type": "catchAll"
+            }
+        ],
+        "outputs": 3,
+        "x": 330,
+        "y": 1160,
+        "wires": [
+            [
+                "f7accd5d.32609"
+            ],
+            [
+                "5f146edd.ece11"
+            ],
+            [
+                "2013aab7.2f74b6"
+            ]
+        ]
+    },
+    {
+        "id": "f7accd5d.32609",
+        "type": "chatbot-message",
+        "z": "dde5902e.a2c9d",
+        "name": "Restaurant address",
+        "message": [
+            {
+                "message": "Ecco l'indirizzo del ristorante:\n{{selectedRestaurant.address}}"
+            }
+        ],
+        "answer": false,
+        "track": false,
+        "x": 550,
+        "y": 1120,
+        "wires": [
+            [
+                "cb2b5a9c.7302a8"
+            ]
+        ]
+    },
+    {
+        "id": "cb2b5a9c.7302a8",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [
+            "c495d887.70d8c8"
+        ],
+        "x": 726.25,
+        "y": 1116.25,
+        "wires": []
+    },
+    {
+        "id": "5f146edd.ece11",
+        "type": "chatbot-message",
+        "z": "dde5902e.a2c9d",
+        "name": "Where what?",
+        "message": [
+            {
+                "message": "Seleziona un ristarante dalla lista, poi ti sapro' dare indicazioni su come arrivarci"
+            }
+        ],
+        "answer": false,
+        "track": false,
+        "x": 530,
+        "y": 1160,
+        "wires": [
+            [
+                "8270e1f9.4be2c"
+            ]
+        ]
+    },
+    {
+        "id": "8270e1f9.4be2c",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [
+            "c495d887.70d8c8"
+        ],
+        "x": 695,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "2013aab7.2f74b6",
+        "type": "chatbot-message",
+        "z": "dde5902e.a2c9d",
+        "name": "Where what?",
+        "message": [
+            {
+                "message": "Non ho capito, di cosa mi stai chiedendo l'indirizzo."
+            }
+        ],
+        "answer": false,
+        "track": false,
+        "x": 530,
+        "y": 1260,
+        "wires": [
+            [
+                "1520a6db.496d29"
+            ]
+        ]
+    },
+    {
+        "id": "1520a6db.496d29",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [
+            "c495d887.70d8c8"
+        ],
+        "x": 695,
+        "y": 1260,
+        "wires": []
+    },
+    {
+        "id": "bde5c5f7.113728",
+        "type": "function",
+        "z": "4eecbbaf.4cf274",
+        "name": "Prepare buttons",
+        "func": "var chat = msg.chat();\n\nchat.get('queryRestaurants')\n  .then(function(restaurants) {\n    var buttons = restaurants.map(restaurant => ({\n      type: 'postback',\n      value: '/restaurant ' + String(restaurant.id),\n      label: restaurant.name\n    }));\n\n    msg.payload = {\n      buttons\n    };\n\n    node.send(msg);\n  });\n\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 480,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1ed23f28.8a4ef1",
+        "type": "subflow:4eecbbaf.4cf274",
+        "z": "dde5902e.a2c9d",
+        "x": 600,
+        "y": 620,
+        "wires": [
+            [
+                "de527e31.e7836"
+            ]
+        ]
+    },
+    {
+        "id": "39af2978.f0a786",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [
+            "c6484bb2.e68408"
+        ],
+        "x": 1335,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "c6484bb2.e68408",
+        "type": "link in",
+        "z": "dde5902e.a2c9d",
+        "name": "Handle didn't understand",
+        "links": [
+            "39af2978.f0a786",
+            "6cff748.7f2d88c"
+        ],
+        "x": 155,
+        "y": 1480,
+        "wires": [
+            [
+                "dfe2a8af.a72578"
+            ]
+        ]
+    },
+    {
+        "id": "f36d0b24.59dcf8",
+        "type": "comment",
+        "z": "dde5902e.a2c9d",
+        "name": "Handle I didn't understand",
+        "info": "",
+        "x": 250,
+        "y": 1420,
+        "wires": []
+    },
+    {
+        "id": "dfe2a8af.a72578",
+        "type": "chatbot-rules",
+        "z": "dde5902e.a2c9d",
+        "name": "Select topic",
+        "rules": [
+            {
+                "type": "isTopic",
+                "topic": "restaurant.list"
+            },
+            {
+                "type": "isTopic",
+                "topic": "restaurant.selected"
+            },
+            {
+                "type": "catchAll"
+            }
+        ],
+        "outputs": 3,
+        "x": 290,
+        "y": 1480,
+        "wires": [
+            [
+                "d5d4c636.1df558"
+            ],
+            [
+                "4ec8ea88.412924"
+            ],
+            [
+                "7161e026.a3e21"
+            ]
+        ]
+    },
+    {
+        "id": "7161e026.a3e21",
+        "type": "chatbot-message",
+        "z": "dde5902e.a2c9d",
+        "name": "Generic didn't understand",
+        "message": [
+            {
+                "message": "Temo di non aver capito, sto ancora imparando. Prova con frasi del tipo \"Puoi consigliarmi un ristorante?\""
+            },
+            {
+                "message": "Non ho capito, prova a dirmelo diversamente"
+            },
+            {
+                "message": "Non capisco, prova a formulare la frase diversamente"
+            }
+        ],
+        "answer": false,
+        "track": false,
+        "x": 550,
+        "y": 1580,
+        "wires": [
+            [
+                "ec6aac56.979b9"
+            ]
+        ]
+    },
+    {
+        "id": "ec6aac56.979b9",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [
+            "c495d887.70d8c8"
+        ],
+        "x": 715,
+        "y": 1580,
+        "wires": []
+    },
+    {
+        "id": "d5d4c636.1df558",
+        "type": "chatbot-inline-buttons",
+        "z": "dde5902e.a2c9d",
+        "name": "Didn't undersand restaurant list",
+        "buttons": [
+            {
+                "type": "postback",
+                "label": "Rivedi lista ristoranti",
+                "value": "/recap",
+                "answer": "",
+                "alert": false,
+                "style": ""
+            }
+        ],
+        "message": "Non ho capito, ho trovato una lista di ristoranti, vuoi rivederla?",
+        "x": 570,
+        "y": 1460,
+        "wires": [
+            [
+                "40621a82.1f2804"
+            ]
+        ]
+    },
+    {
+        "id": "40621a82.1f2804",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [
+            "c495d887.70d8c8"
+        ],
+        "x": 755,
+        "y": 1460,
+        "wires": []
+    },
+    {
+        "id": "cbd57a8a.22a4c8",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [
+            "cf16e293.f28a9"
+        ],
+        "x": 595,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "cf16e293.f28a9",
+        "type": "link in",
+        "z": "dde5902e.a2c9d",
+        "name": "Show recap /recap",
+        "links": [
+            "cbd57a8a.22a4c8",
+            "4c70e62c.7aa2e8"
+        ],
+        "x": 155,
+        "y": 1780,
+        "wires": [
+            [
+                "ddf5387e.f74768"
+            ]
+        ]
+    },
+    {
+        "id": "edd0aef2.3b4ae",
+        "type": "comment",
+        "z": "dde5902e.a2c9d",
+        "name": "Show recap /recap",
+        "info": "",
+        "x": 230,
+        "y": 1700,
+        "wires": []
+    },
+    {
+        "id": "6cff748.7f2d88c",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [
+            "c6484bb2.e68408"
+        ],
+        "x": 1075,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "4c70e62c.7aa2e8",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [
+            "cf16e293.f28a9"
+        ],
+        "x": 1335,
+        "y": 354,
+        "wires": []
+    },
+    {
+        "id": "4ec8ea88.412924",
+        "type": "chatbot-inline-buttons",
+        "z": "dde5902e.a2c9d",
+        "name": "Didn't understand restaurant",
+        "buttons": [
+            {
+                "type": "postback",
+                "label": "Dimmi dove si trova",
+                "value": "/where",
+                "answer": "",
+                "alert": false,
+                "style": ""
+            }
+        ],
+        "message": "Non capisco, stavamo parlando del ristorante \"{{selectedRestaurant.name}}\", per sapere l'indirizzo scrivi qualcosa tipo \"dove si trova?\"",
+        "x": 560,
+        "y": 1500,
+        "wires": [
+            [
+                "3886a270.d97cae"
+            ]
+        ]
+    },
+    {
+        "id": "3886a270.d97cae",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [
+            "c495d887.70d8c8"
+        ],
+        "x": 755,
+        "y": 1500,
+        "wires": []
+    },
+    {
+        "id": "2214785e.0727f8",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [
+            "b41f7c82.e37fa"
+        ],
+        "x": 595,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "ddf5387e.f74768",
+        "type": "chatbot-rules",
+        "z": "dde5902e.a2c9d",
+        "name": "Select topic",
+        "rules": [
+            {
+                "type": "isTopic",
+                "topic": "restaurant.list"
+            },
+            {
+                "type": "isTopic",
+                "topic": "restaurant.selected"
+            },
+            {
+                "type": "catchAll"
+            }
+        ],
+        "outputs": 3,
+        "x": 290,
+        "y": 1780,
+        "wires": [
+            [
+                "7cf08899.f852b8"
+            ],
+            [
+                "915071f9.057a5"
+            ],
+            [
+                "f56441ce.4ff43"
+            ]
+        ]
+    },
+    {
+        "id": "915071f9.057a5",
+        "type": "chatbot-inline-buttons",
+        "z": "dde5902e.a2c9d",
+        "name": "Recap restaurant",
+        "buttons": [
+            {
+                "type": "postback",
+                "label": "Dimmi dove si trova",
+                "value": "/where",
+                "answer": "",
+                "alert": false,
+                "style": ""
+            }
+        ],
+        "message": "Dunque, stavamo parlando del ristorante \"{{selectedRestaurant.name}}\": cosa desideri sapere?",
+        "x": 530,
+        "y": 1780,
+        "wires": [
+            [
+                "f8ccad8c.032ae"
+            ]
+        ]
+    },
+    {
+        "id": "f8ccad8c.032ae",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [
+            "c495d887.70d8c8"
+        ],
+        "x": 675,
+        "y": 1780,
+        "wires": []
+    },
+    {
+        "id": "49d321ab.3b9b7",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [
+            "c495d887.70d8c8"
+        ],
+        "x": 915,
+        "y": 1740,
+        "wires": []
+    },
+    {
+        "id": "de527e31.e7836",
+        "type": "chatbot-inline-buttons",
+        "z": "dde5902e.a2c9d",
+        "name": "Restaurant Buttons",
+        "buttons": [],
+        "message": "Ecco i ristoranti nei dintorni:",
+        "x": 830,
+        "y": 620,
+        "wires": [
+            [
+                "a1a36112.a267a"
+            ]
+        ]
+    },
+    {
+        "id": "7cf08899.f852b8",
+        "type": "subflow:4eecbbaf.4cf274",
+        "z": "dde5902e.a2c9d",
+        "x": 520,
+        "y": 1740,
+        "wires": [
+            [
+                "968e420f.9f992"
+            ]
+        ]
+    },
+    {
+        "id": "968e420f.9f992",
+        "type": "chatbot-inline-buttons",
+        "z": "dde5902e.a2c9d",
+        "name": "Recap restaurant buttons",
+        "buttons": [],
+        "message": "Ti avevo trovato una lista di ristoranti nei dintorni, eccola:",
+        "x": 750,
+        "y": 1740,
+        "wires": [
+            [
+                "49d321ab.3b9b7"
+            ]
+        ]
+    },
+    {
+        "id": "f56441ce.4ff43",
+        "type": "chatbot-message",
+        "z": "dde5902e.a2c9d",
+        "name": "Generic recap",
+        "message": [
+            {
+                "message": "Sono qui per aiutarti! Posso aiutarti a cercare un ristorante o qualcosa di interessante nei dintorni"
+            },
+            {
+                "message": "Eccomi. Vuoi cercare un ristorante? Scrivi \"consigliami un ristorante nei dintorni\" "
+            }
+        ],
+        "answer": false,
+        "track": false,
+        "x": 520,
+        "y": 1860,
+        "wires": [
+            [
+                "24f395bd.d2a11a"
+            ]
+        ]
+    },
+    {
+        "id": "24f395bd.d2a11a",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [],
+        "x": 655,
+        "y": 1860,
+        "wires": []
+    }
+]
