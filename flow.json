@@ -208,7 +208,7 @@
         "z": "",
         "name": "File Production",
         "contextStorage": "plain-file",
-        "contextParams": "{\"path\":\"/chat-contexts\"}"
+        "contextParams": "{\"path\":\"/data/chat-contexts\"}"
     },
     {
         "id": "138e9179.d7b79f",
@@ -216,6 +216,7 @@
         "z": "",
         "botname": "CardBot PRODUCTION",
         "usernames": "",
+        "providerToken": "",
         "polling": "1000",
         "store": "d895dd4c.8d62d",
         "log": "",
