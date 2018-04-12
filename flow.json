@@ -245,8 +245,8 @@
         "language": "en",
         "debug": true,
         "variable": "intent",
-        "x": 900,
-        "y": 380,
+        "x": 1080,
+        "y": 360,
         "wires": [
             [
                 "6756ea1.36d8e14"
@@ -264,8 +264,8 @@
         "func": "var language = context.global.language;\n\nmsg.payload.language = language;\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 670,
-        "y": 380,
+        "x": 850,
+        "y": 360,
         "wires": [
             [
                 "10888fbd.1e1bd"
@@ -304,12 +304,32 @@
                 "value": "conversation.rating"
             },
             {
+                "type": "isVariable",
+                "variable": "intent",
+                "value": "conversation.startover"
+            },
+            {
+                "type": "isVariable",
+                "variable": "intent",
+                "value": "conversation.nearest.restaurant"
+            },
+            {
+                "type": "isVariable",
+                "variable": "intent",
+                "value": "conversation.more"
+            },
+            {
+                "type": "isVariable",
+                "variable": "intent",
+                "value": "conversation.help"
+            },
+            {
                 "type": "catchAll"
             }
         ],
-        "outputs": 6,
-        "x": 1140,
-        "y": 340,
+        "outputs": 10,
+        "x": 1320,
+        "y": 320,
         "wires": [
             [
                 "f8b53fd8.927b3"
@@ -327,6 +347,18 @@
                 "e4273678.ffa628"
             ],
             [
+                "f8673d15.114b"
+            ],
+            [
+                "762f5fe9.b1275"
+            ],
+            [
+                "c963774f.b7b1c8"
+            ],
+            [
+                "796edd3.cd6a324"
+            ],
+            [
                 "39af2978.f0a786"
             ]
         ]
@@ -339,8 +371,8 @@
         "fieldValue": "restaurant.list",
         "fieldType": "str",
         "fieldName": "topic",
-        "x": 1380,
-        "y": 300,
+        "x": 1560,
+        "y": 280,
         "wires": [
             [
                 "6c691444.4e487c"
@@ -397,7 +429,16 @@
             "6a4ad002.acddb",
             "bf988934.a7b9a8",
             "795f352d.1a777c",
-            "e030725a.a4834"
+            "e030725a.a4834",
+            "33870301.a35a2c",
+            "22791259.3cfa4e",
+            "14331687.f04e49",
+            "e7c18a84.137c18",
+            "39a1301c.2f82b",
+            "b9a7bf88.e934c",
+            "2cc0be1e.809792",
+            "9d75d1f4.3fc2d",
+            "7164d485.5feaec"
         ],
         "x": 135,
         "y": 180,
@@ -466,8 +507,8 @@
         "links": [
             "ff305f6c.2abe4"
         ],
-        "x": 1475,
-        "y": 300,
+        "x": 1655,
+        "y": 280,
         "wires": []
     },
     {
@@ -523,15 +564,15 @@
         "links": [
             "de26d1b0.17d15"
         ],
-        "x": 595,
-        "y": 220,
+        "x": 715,
+        "y": 140,
         "wires": []
     },
     {
         "id": "1b747c43.bf9a64",
         "type": "chatbot-rules",
         "z": "dde5902e.a2c9d",
-        "name": "",
+        "name": "Detect commands",
         "rules": [
             {
                 "type": "command",
@@ -550,11 +591,15 @@
                 "command": "/back"
             },
             {
+                "type": "command",
+                "command": "/start"
+            },
+            {
                 "type": "catchAll"
             }
         ],
-        "outputs": 5,
-        "x": 470,
+        "outputs": 6,
+        "x": 510,
         "y": 300,
         "wires": [
             [
@@ -568,6 +613,9 @@
             ],
             [
                 "acc33979.9ebea8"
+            ],
+            [
+                "eca830d0.88938"
             ],
             [
                 "fb6ef42d.3e2778"
@@ -660,8 +708,8 @@
         "links": [
             "b41f7c82.e37fa"
         ],
-        "x": 1335,
-        "y": 380,
+        "x": 1515,
+        "y": 360,
         "wires": []
     },
     {
@@ -855,8 +903,8 @@
         "links": [
             "c6484bb2.e68408"
         ],
-        "x": 1335,
-        "y": 500,
+        "x": 1515,
+        "y": 640,
         "wires": []
     },
     {
@@ -1001,8 +1049,8 @@
         "links": [
             "cf16e293.f28a9"
         ],
-        "x": 595,
-        "y": 260,
+        "x": 715,
+        "y": 180,
         "wires": []
     },
     {
@@ -1040,8 +1088,8 @@
         "links": [
             "c6484bb2.e68408"
         ],
-        "x": 1075,
-        "y": 420,
+        "x": 1255,
+        "y": 400,
         "wires": []
     },
     {
@@ -1052,8 +1100,8 @@
         "links": [
             "cf16e293.f28a9"
         ],
-        "x": 1335,
-        "y": 340,
+        "x": 1515,
+        "y": 320,
         "wires": []
     },
     {
@@ -1100,8 +1148,8 @@
         "links": [
             "b41f7c82.e37fa"
         ],
-        "x": 595,
-        "y": 300,
+        "x": 715,
+        "y": 220,
         "wires": []
     },
     {
@@ -1268,8 +1316,8 @@
         "links": [
             "b604c0d7.7a1a1"
         ],
-        "x": 1333,
-        "y": 421,
+        "x": 1513,
+        "y": 401,
         "wires": []
     },
     {
@@ -1399,8 +1447,8 @@
         "links": [
             "b604c0d7.7a1a1"
         ],
-        "x": 604,
-        "y": 336,
+        "x": 715,
+        "y": 260,
         "wires": []
     },
     {
@@ -1586,8 +1634,8 @@
         "links": [
             "ff90c4b6.4bb9b8"
         ],
-        "x": 1333,
-        "y": 459,
+        "x": 1513,
+        "y": 439,
         "wires": []
     },
     {
@@ -1749,6 +1797,668 @@
         ],
         "x": 675,
         "y": 2720,
+        "wires": []
+    },
+    {
+        "id": "f8673d15.114b",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [],
+        "x": 1515,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "f987ecea.f2774",
+        "type": "link in",
+        "z": "dde5902e.a2c9d",
+        "name": "Handle startover",
+        "links": [],
+        "x": 155,
+        "y": 3020,
+        "wires": [
+            [
+                "2a72ac9.81f6854"
+            ]
+        ]
+    },
+    {
+        "id": "2a03f4a6.9a2bfc",
+        "type": "comment",
+        "z": "dde5902e.a2c9d",
+        "name": "Handle startover",
+        "info": "",
+        "x": 220,
+        "y": 2960,
+        "wires": []
+    },
+    {
+        "id": "2a72ac9.81f6854",
+        "type": "function",
+        "z": "dde5902e.a2c9d",
+        "name": "Start over",
+        "func": "var chat = msg.chat();\n\nchat.set({\n  selectedRestaurant: null,\n  queryRestaurants: null,\n  topic: null\n}).then(function() {\n  node.send(msg);\n});\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 280,
+        "y": 3020,
+        "wires": [
+            [
+                "d83167ff.830388"
+            ]
+        ]
+    },
+    {
+        "id": "d83167ff.830388",
+        "type": "chatbot-message",
+        "z": "dde5902e.a2c9d",
+        "name": "Ok, startover",
+        "message": [
+            {
+                "message": "Ok, ricominciamo daccapo"
+            },
+            {
+                "message": "Ok, torniamo all'inizio"
+            }
+        ],
+        "answer": false,
+        "track": false,
+        "x": 470,
+        "y": 3020,
+        "wires": [
+            [
+                "33870301.a35a2c"
+            ]
+        ]
+    },
+    {
+        "id": "33870301.a35a2c",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [
+            "c495d887.70d8c8"
+        ],
+        "x": 595,
+        "y": 3020,
+        "wires": []
+    },
+    {
+        "id": "eca830d0.88938",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [
+            "6141ccb1.3f2554"
+        ],
+        "x": 715,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "2e1e09ff.5a9d16",
+        "type": "comment",
+        "z": "dde5902e.a2c9d",
+        "name": "Handle /start",
+        "info": "",
+        "x": 195,
+        "y": 3178,
+        "wires": []
+    },
+    {
+        "id": "6141ccb1.3f2554",
+        "type": "link in",
+        "z": "dde5902e.a2c9d",
+        "name": "Handle /start",
+        "links": [
+            "eca830d0.88938"
+        ],
+        "x": 135,
+        "y": 3260,
+        "wires": [
+            [
+                "2e1525ae.d5711a"
+            ]
+        ]
+    },
+    {
+        "id": "2e1525ae.d5711a",
+        "type": "chatbot-message",
+        "z": "dde5902e.a2c9d",
+        "name": "Welcome text",
+        "message": [
+            {
+                "message": "Ciao! Come posso aiutarti? Posso consigliarti un ristorante nelle vicinanze o un posto interessante."
+            }
+        ],
+        "answer": false,
+        "track": false,
+        "x": 300,
+        "y": 3260,
+        "wires": [
+            [
+                "22791259.3cfa4e"
+            ]
+        ]
+    },
+    {
+        "id": "22791259.3cfa4e",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [
+            "c495d887.70d8c8"
+        ],
+        "x": 455,
+        "y": 3260,
+        "wires": []
+    },
+    {
+        "id": "762f5fe9.b1275",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [
+            "4b40fe81.32681"
+        ],
+        "x": 1515,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "fbc8303f.85a9f",
+        "type": "comment",
+        "z": "dde5902e.a2c9d",
+        "name": "Handle conversation.nearest.restaurant",
+        "info": "",
+        "x": 250,
+        "y": 3460,
+        "wires": []
+    },
+    {
+        "id": "4b40fe81.32681",
+        "type": "link in",
+        "z": "dde5902e.a2c9d",
+        "name": "Closest restaurant",
+        "links": [
+            "762f5fe9.b1275"
+        ],
+        "x": 115,
+        "y": 3540,
+        "wires": [
+            [
+                "25c19835.d0d8b8"
+            ]
+        ]
+    },
+    {
+        "id": "25c19835.d0d8b8",
+        "type": "subflow:336e466f.27575a",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "x": 270,
+        "y": 3540,
+        "wires": [
+            [
+                "b0bfa89d.51cea8"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "b0bfa89d.51cea8",
+        "type": "function",
+        "z": "dde5902e.a2c9d",
+        "name": "Select first restaurant (closes)",
+        "func": "var chat = msg.chat();\n\nchat.set({\n  selectedRestaurant: msg.payload[0],\n  topic: 'restaurant.selected'\n}).then(function() {\n  node.send(msg);\n});",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 550,
+        "y": 3540,
+        "wires": [
+            [
+                "4d28a9fe.dd0868"
+            ]
+        ]
+    },
+    {
+        "id": "4d28a9fe.dd0868",
+        "type": "chatbot-message",
+        "z": "dde5902e.a2c9d",
+        "name": "Closest",
+        "message": [
+            {
+                "message": "Dunque, il ristorante più vicino e' {{selectedRestaurant.name}}"
+            },
+            {
+                "message": "Ho trovato {{selectedRestaurant.name}}"
+            },
+            {
+                "message": "Il piu vicino è {{selectedRestaurant.name}}"
+            }
+        ],
+        "answer": false,
+        "track": false,
+        "x": 800,
+        "y": 3540,
+        "wires": [
+            [
+                "14331687.f04e49"
+            ]
+        ]
+    },
+    {
+        "id": "14331687.f04e49",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [
+            "c495d887.70d8c8"
+        ],
+        "x": 935,
+        "y": 3540,
+        "wires": []
+    },
+    {
+        "id": "c963774f.b7b1c8",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [
+            "7247c0de.e4188"
+        ],
+        "x": 1515,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "e691280e.87d1a8",
+        "type": "comment",
+        "z": "dde5902e.a2c9d",
+        "name": "Handle conversation.more",
+        "info": "",
+        "x": 210,
+        "y": 3760,
+        "wires": []
+    },
+    {
+        "id": "7247c0de.e4188",
+        "type": "link in",
+        "z": "dde5902e.a2c9d",
+        "name": "Handle conversation.more",
+        "links": [
+            "c963774f.b7b1c8"
+        ],
+        "x": 115,
+        "y": 3880,
+        "wires": [
+            [
+                "573c32b7.19bd8c"
+            ]
+        ]
+    },
+    {
+        "id": "573c32b7.19bd8c",
+        "type": "chatbot-rules",
+        "z": "dde5902e.a2c9d",
+        "name": "Select topic",
+        "rules": [
+            {
+                "type": "isTopic",
+                "topic": "restaurant.selected"
+            },
+            {
+                "type": "catchAll"
+            }
+        ],
+        "outputs": 2,
+        "x": 250,
+        "y": 3880,
+        "wires": [
+            [
+                "637bdcdf.6e0b54",
+                "5cb1e1de.c468c"
+            ],
+            [
+                "d5b56d36.94dc4"
+            ]
+        ]
+    },
+    {
+        "id": "d5b56d36.94dc4",
+        "type": "chatbot-message",
+        "z": "dde5902e.a2c9d",
+        "name": "Don't know",
+        "message": [
+            {
+                "message": "Non saprei darti piu' informazioni, seleziona un ristorante o un luogo di interesse"
+            },
+            {
+                "message": "Non capisco quali informazioni aggiuntive cerchi"
+            }
+        ],
+        "answer": false,
+        "track": false,
+        "x": 470,
+        "y": 3960,
+        "wires": [
+            [
+                "e7c18a84.137c18"
+            ]
+        ]
+    },
+    {
+        "id": "e7c18a84.137c18",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [
+            "c495d887.70d8c8"
+        ],
+        "x": 595,
+        "y": 3960,
+        "wires": []
+    },
+    {
+        "id": "79fddf2f.16547",
+        "type": "template",
+        "z": "dde5902e.a2c9d",
+        "name": "Answer template",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Il ristorante è valutato {{payload.rating}} dai suoi clienti, in questo momento è\n{{payload.opennowLabel}}, si trova in {{payload.address}}",
+        "output": "str",
+        "x": 690,
+        "y": 3860,
+        "wires": [
+            [
+                "64701432.33f03c"
+            ]
+        ]
+    },
+    {
+        "id": "39a1301c.2f82b",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [
+            "c495d887.70d8c8"
+        ],
+        "x": 1035,
+        "y": 3860,
+        "wires": []
+    },
+    {
+        "id": "64701432.33f03c",
+        "type": "chatbot-message",
+        "z": "dde5902e.a2c9d",
+        "name": "All info message",
+        "message": [
+            {
+                "message": ""
+            }
+        ],
+        "answer": false,
+        "track": false,
+        "x": 900,
+        "y": 3860,
+        "wires": [
+            [
+                "39a1301c.2f82b"
+            ]
+        ]
+    },
+    {
+        "id": "637bdcdf.6e0b54",
+        "type": "function",
+        "z": "dde5902e.a2c9d",
+        "name": "payload.restaurant",
+        "func": "var chat = msg.chat();\n\nchat.get('selectedRestaurant')\n  .then(function(restaurant) {\n    msg.payload = restaurant;\n    msg.payload.opennowLabel = restaurant.opennow ? 'aperto' : 'chiuso'; \n    node.send(msg);\n  });\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 470,
+        "y": 3860,
+        "wires": [
+            [
+                "79fddf2f.16547"
+            ]
+        ]
+    },
+    {
+        "id": "5cb1e1de.c468c",
+        "type": "delay",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "300",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 450,
+        "y": 3820,
+        "wires": [
+            [
+                "5a5f7118.53692"
+            ]
+        ]
+    },
+    {
+        "id": "5a5f7118.53692",
+        "type": "function",
+        "z": "dde5902e.a2c9d",
+        "name": "Prepare map",
+        "func": "var chat = msg.chat();\n\nchat.get('selectedRestaurant')\n  .then(function(restaurant) {\n    msg.payload.latitude = restaurant.lat;\n    msg.payload.longitude = restaurant.lon;\n    console.log('mando', msg.payload)\n    node.send(msg);\n  });\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 630,
+        "y": 3820,
+        "wires": [
+            [
+                "4ea6e31c.012e4c"
+            ]
+        ]
+    },
+    {
+        "id": "4ea6e31c.012e4c",
+        "type": "chatbot-location",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "latitude": "",
+        "longitude": "",
+        "place": "",
+        "x": 800,
+        "y": 3820,
+        "wires": [
+            [
+                "b9a7bf88.e934c"
+            ]
+        ]
+    },
+    {
+        "id": "b9a7bf88.e934c",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [
+            "c495d887.70d8c8"
+        ],
+        "x": 935,
+        "y": 3820,
+        "wires": []
+    },
+    {
+        "id": "ccfc9f99.8a4ab",
+        "type": "comment",
+        "z": "dde5902e.a2c9d",
+        "name": "Handle contextualized conversation.help",
+        "info": "",
+        "x": 260,
+        "y": 4120,
+        "wires": []
+    },
+    {
+        "id": "70a60846.2743d8",
+        "type": "link in",
+        "z": "dde5902e.a2c9d",
+        "name": "Handle conversation.help",
+        "links": [
+            "796edd3.cd6a324"
+        ],
+        "x": 115,
+        "y": 4260,
+        "wires": [
+            [
+                "fdcd5abf.566488"
+            ]
+        ]
+    },
+    {
+        "id": "fdcd5abf.566488",
+        "type": "chatbot-rules",
+        "z": "dde5902e.a2c9d",
+        "name": "Select topic",
+        "rules": [
+            {
+                "type": "isTopic",
+                "topic": "restaurant.selected"
+            },
+            {
+                "type": "isTopic",
+                "topic": "restaurant.list"
+            },
+            {
+                "type": "catchAll"
+            }
+        ],
+        "outputs": 3,
+        "x": 270,
+        "y": 4260,
+        "wires": [
+            [
+                "b95d1d9c.c19a6"
+            ],
+            [
+                "d42d39f0.314a18"
+            ],
+            [
+                "ec3a1c1e.86561"
+            ]
+        ]
+    },
+    {
+        "id": "ec3a1c1e.86561",
+        "type": "chatbot-message",
+        "z": "dde5902e.a2c9d",
+        "name": "Generic help",
+        "message": [
+            {
+                "message": "Posso aiutarti a trovare il ristorante piu' vicino o i luoghi interessanti nei dintorni, prova con \"indicami il ristorante più vicino\""
+            }
+        ],
+        "answer": false,
+        "track": false,
+        "x": 490,
+        "y": 4300,
+        "wires": [
+            [
+                "2cc0be1e.809792"
+            ]
+        ]
+    },
+    {
+        "id": "2cc0be1e.809792",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [
+            "c495d887.70d8c8"
+        ],
+        "x": 615,
+        "y": 4300,
+        "wires": []
+    },
+    {
+        "id": "b95d1d9c.c19a6",
+        "type": "chatbot-message",
+        "z": "dde5902e.a2c9d",
+        "name": "Help with a selected restaurant",
+        "message": [
+            {
+                "message": "Stavamo parlando del ristorante {{selectedRestaurant.name}}, puoi chiedermi indicazioni per raggiungerlo (\"dimmi l'indirizzo\") oppure se hai cambiato idea, scegliere un altro ristorante dalla lista (\"fammi rivedere la lista\")"
+            }
+        ],
+        "answer": false,
+        "track": false,
+        "x": 550,
+        "y": 4220,
+        "wires": [
+            [
+                "9d75d1f4.3fc2d"
+            ]
+        ]
+    },
+    {
+        "id": "9d75d1f4.3fc2d",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [
+            "c495d887.70d8c8"
+        ],
+        "x": 755,
+        "y": 4220,
+        "wires": []
+    },
+    {
+        "id": "d42d39f0.314a18",
+        "type": "chatbot-message",
+        "z": "dde5902e.a2c9d",
+        "name": "Help with a restaurant list",
+        "message": [
+            {
+                "message": "Ti ho appena trovato una lista di ristoranti, scegline uno dalla lista per avere piu' informazioni oppure scegli quello piu' vicino (\"consigliami il ristorante piu' vicino\")"
+            }
+        ],
+        "answer": false,
+        "track": false,
+        "x": 530,
+        "y": 4260,
+        "wires": [
+            [
+                "7164d485.5feaec"
+            ]
+        ]
+    },
+    {
+        "id": "7164d485.5feaec",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [
+            "c495d887.70d8c8"
+        ],
+        "x": 695,
+        "y": 4260,
+        "wires": []
+    },
+    {
+        "id": "796edd3.cd6a324",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [
+            "70a60846.2743d8"
+        ],
+        "x": 1515,
+        "y": 600,
         "wires": []
     }
 ]
