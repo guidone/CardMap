@@ -13,11 +13,11 @@
         "info": "Query restaurant nearby, results payload\n\n[\n  {\n    name: 'Restaurant name' \n  },\n  // ...\n]",
         "in": [
             {
-                "x": 180,
-                "y": 200,
+                "x": 240,
+                "y": 340,
                 "wires": [
                     {
-                        "id": "b91ca546.7d52f8"
+                        "id": "52a493d0.52c47c"
                     }
                 ]
             }
@@ -30,12 +30,16 @@
                     {
                         "id": "b91ca546.7d52f8",
                         "port": 0
+                    },
+                    {
+                        "id": "5e353e66.cc94b",
+                        "port": 0
                     }
                 ]
             },
             {
-                "x": 680,
-                "y": 320,
+                "x": 640,
+                "y": 100,
                 "wires": []
             }
         ]
@@ -106,6 +110,99 @@
         "store": "3ecb4316.35e29c",
         "log": "",
         "parseMode": ""
+    },
+    {
+        "id": "a12b865a.9b7f88",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "fb202ea2.5e9c8",
+        "type": "google-api-config",
+        "z": "336e466f.27575a"
     },
     {
         "id": "2cb254d.95a19ac",
@@ -197,10 +294,20 @@
                 "value": "conversation.where"
             },
             {
+                "type": "isVariable",
+                "variable": "intent",
+                "value": "conversation.back"
+            },
+            {
+                "type": "isVariable",
+                "variable": "intent",
+                "value": "conversation.rating"
+            },
+            {
                 "type": "catchAll"
             }
         ],
-        "outputs": 4,
+        "outputs": 6,
         "x": 1140,
         "y": 340,
         "wires": [
@@ -212,6 +319,12 @@
             ],
             [
                 "defe5071.1e372"
+            ],
+            [
+                "540c16fb.a0c578"
+            ],
+            [
+                "e4273678.ffa628"
             ],
             [
                 "39af2978.f0a786"
@@ -252,6 +365,7 @@
         "id": "415a7c18.461774",
         "type": "subflow:336e466f.27575a",
         "z": "dde5902e.a2c9d",
+        "name": "",
         "x": 360,
         "y": 620,
         "wires": [
@@ -277,7 +391,13 @@
             "40621a82.1f2804",
             "3886a270.d97cae",
             "f8ccad8c.032ae",
-            "49d321ab.3b9b7"
+            "49d321ab.3b9b7",
+            "93ab350a.482058",
+            "e8e0a13d.005e1",
+            "6a4ad002.acddb",
+            "bf988934.a7b9a8",
+            "795f352d.1a777c",
+            "e030725a.a4834"
         ],
         "x": 135,
         "y": 180,
@@ -317,7 +437,8 @@
         "z": "dde5902e.a2c9d",
         "name": "Show restaurant list",
         "links": [
-            "6c691444.4e487c"
+            "6c691444.4e487c",
+            "ca047d44.f7bc"
         ],
         "x": 155,
         "y": 620,
@@ -425,10 +546,14 @@
                 "command": "/where"
             },
             {
+                "type": "command",
+                "command": "/back"
+            },
+            {
                 "type": "catchAll"
             }
         ],
-        "outputs": 4,
+        "outputs": 5,
         "x": 470,
         "y": 300,
         "wires": [
@@ -440,6 +565,9 @@
             ],
             [
                 "2214785e.0727f8"
+            ],
+            [
+                "acc33979.9ebea8"
             ],
             [
                 "fb6ef42d.3e2778"
@@ -533,7 +661,7 @@
             "b41f7c82.e37fa"
         ],
         "x": 1335,
-        "y": 400,
+        "y": 380,
         "wires": []
     },
     {
@@ -586,7 +714,8 @@
         "y": 1160,
         "wires": [
             [
-                "f7accd5d.32609"
+                "f7accd5d.32609",
+                "c113e20f.352d6"
             ],
             [
                 "5f146edd.ece11"
@@ -624,8 +753,8 @@
         "links": [
             "c495d887.70d8c8"
         ],
-        "x": 726.25,
-        "y": 1116.25,
+        "x": 715,
+        "y": 1120,
         "wires": []
     },
     {
@@ -697,7 +826,7 @@
         "type": "function",
         "z": "4eecbbaf.4cf274",
         "name": "Prepare buttons",
-        "func": "var chat = msg.chat();\n\nchat.get('queryRestaurants')\n  .then(function(restaurants) {\n    var buttons = restaurants.map(restaurant => ({\n      type: 'postback',\n      value: '/restaurant ' + String(restaurant.id),\n      label: restaurant.name\n    }));\n\n    msg.payload = {\n      buttons\n    };\n\n    node.send(msg);\n  });\n\n\n",
+        "func": "var chat = msg.chat();\n\nchat.get('queryRestaurants')\n  .then(function(restaurants) {\n    var buttons = [];\n    restaurants.map(restaurant => {\n      buttons.push({\n        type: 'postback',\n        value: '/restaurant ' + String(restaurant.id),\n        label: restaurant.name\n      });\n      buttons.push({\n        type: 'newline'\n      });\n    });\n\n    msg.payload = {\n      buttons\n    };\n\n    node.send(msg);\n  });\n\n\n",
         "outputs": 1,
         "noerr": 0,
         "x": 480,
@@ -727,7 +856,7 @@
             "c6484bb2.e68408"
         ],
         "x": 1335,
-        "y": 440,
+        "y": 500,
         "wires": []
     },
     {
@@ -912,7 +1041,7 @@
             "c6484bb2.e68408"
         ],
         "x": 1075,
-        "y": 400,
+        "y": 420,
         "wires": []
     },
     {
@@ -924,7 +1053,7 @@
             "cf16e293.f28a9"
         ],
         "x": 1335,
-        "y": 354,
+        "y": 340,
         "wires": []
     },
     {
@@ -1129,6 +1258,497 @@
         "links": [],
         "x": 655,
         "y": 1860,
+        "wires": []
+    },
+    {
+        "id": "540c16fb.a0c578",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [
+            "b604c0d7.7a1a1"
+        ],
+        "x": 1333,
+        "y": 421,
+        "wires": []
+    },
+    {
+        "id": "b604c0d7.7a1a1",
+        "type": "link in",
+        "z": "dde5902e.a2c9d",
+        "name": "Back",
+        "links": [
+            "540c16fb.a0c578",
+            "acc33979.9ebea8"
+        ],
+        "x": 155,
+        "y": 2300,
+        "wires": [
+            [
+                "b8e399b7.bb14f8"
+            ]
+        ]
+    },
+    {
+        "id": "3318c4a6.2a5d7c",
+        "type": "comment",
+        "z": "dde5902e.a2c9d",
+        "name": "Handle a generic back /back",
+        "info": "",
+        "x": 260,
+        "y": 2160,
+        "wires": []
+    },
+    {
+        "id": "b8e399b7.bb14f8",
+        "type": "chatbot-rules",
+        "z": "dde5902e.a2c9d",
+        "name": "Select topic",
+        "rules": [
+            {
+                "type": "isTopic",
+                "topic": "restaurant.list"
+            },
+            {
+                "type": "isTopic",
+                "topic": "restaurant.selected"
+            },
+            {
+                "type": "catchAll"
+            }
+        ],
+        "outputs": 3,
+        "x": 290,
+        "y": 2300,
+        "wires": [
+            [],
+            [
+                "e1d52b5.d9b89d8",
+                "18ed3df.2f9e8c2"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "e1d52b5.d9b89d8",
+        "type": "chatbot-message",
+        "z": "dde5902e.a2c9d",
+        "name": "Back to restaurant list",
+        "message": [
+            {
+                "message": "Ok ti faccio rivedere la lista dei ristoranti"
+            }
+        ],
+        "answer": false,
+        "track": false,
+        "x": 600,
+        "y": 2300,
+        "wires": [
+            [
+                "f5952204.397ca"
+            ]
+        ]
+    },
+    {
+        "id": "f5952204.397ca",
+        "type": "chatbot-context",
+        "z": "dde5902e.a2c9d",
+        "command": "set",
+        "fieldValue": "restaurant.list",
+        "fieldType": "str",
+        "fieldName": "topic",
+        "x": 800,
+        "y": 2300,
+        "wires": [
+            [
+                "93ab350a.482058"
+            ]
+        ]
+    },
+    {
+        "id": "93ab350a.482058",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [
+            "c495d887.70d8c8"
+        ],
+        "x": 915,
+        "y": 2300,
+        "wires": []
+    },
+    {
+        "id": "f9115b88.559878",
+        "type": "debug",
+        "z": "dde5902e.a2c9d",
+        "name": "Catch errors",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": true,
+        "complete": "error",
+        "x": 1000,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "acc33979.9ebea8",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [
+            "b604c0d7.7a1a1"
+        ],
+        "x": 604,
+        "y": 336,
+        "wires": []
+    },
+    {
+        "id": "9853d2d4.dcf88",
+        "type": "subflow:4eecbbaf.4cf274",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "x": 760,
+        "y": 2240,
+        "wires": [
+            [
+                "dfed59ba.e1d5a8"
+            ]
+        ]
+    },
+    {
+        "id": "dfed59ba.e1d5a8",
+        "type": "chatbot-inline-buttons",
+        "z": "dde5902e.a2c9d",
+        "name": "Restaurant Buttons",
+        "buttons": [],
+        "message": "Ecco i ristoranti nei dintorni:",
+        "x": 970,
+        "y": 2240,
+        "wires": [
+            [
+                "e8e0a13d.005e1"
+            ]
+        ]
+    },
+    {
+        "id": "e8e0a13d.005e1",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [
+            "c495d887.70d8c8"
+        ],
+        "x": 1115,
+        "y": 2240,
+        "wires": []
+    },
+    {
+        "id": "18ed3df.2f9e8c2",
+        "type": "delay",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "300",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 570,
+        "y": 2240,
+        "wires": [
+            [
+                "9853d2d4.dcf88"
+            ]
+        ]
+    },
+    {
+        "id": "52a493d0.52c47c",
+        "type": "google places",
+        "z": "336e466f.27575a",
+        "reqType": "placesNearby",
+        "googleAPI": "fb202ea2.5e9c8",
+        "name": "Restaurants",
+        "lat": "45.4825125",
+        "lon": "9.2047413",
+        "query": "",
+        "radius": "",
+        "rankBy": "distance",
+        "keyword": "restaurant",
+        "language": "it",
+        "minPrice": "",
+        "maxPrice": "",
+        "placeName": "",
+        "placeId": "",
+        "extensions": "",
+        "openNow": "",
+        "types": "restaurant",
+        "outputnumber": "5",
+        "outputas": "single",
+        "x": 390,
+        "y": 340,
+        "wires": [
+            [
+                "5e353e66.cc94b"
+            ]
+        ]
+    },
+    {
+        "id": "5e353e66.cc94b",
+        "type": "function",
+        "z": "336e466f.27575a",
+        "name": "Filter data",
+        "func": "var chat = msg.chat();\nconsole.log('RIsot')\n\nvar places = msg.payload;\n\nconsole.log(places[0].location)\nconsole.log('payload', places[0].payload)\n\nvar results = places.map(place => {\n  return {\n    id: place.placeid,\n    name: place.title,\n    address: place.location.vicinity,\n    lat: place.location.lat,\n    lon: place.location.lon,\n    rating: place.payload.rating,\n    opennow: place.payload.opennow\n  };\n\n});\n\nchat.set('queryRestaurants', results)\n  .then(function() {\n    msg.payload = results;\n    node.send(msg);\n  });\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 580,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c113e20f.352d6",
+        "type": "delay",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "300",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 530,
+        "y": 1080,
+        "wires": [
+            [
+                "7096133f.3a97ac"
+            ]
+        ]
+    },
+    {
+        "id": "7096133f.3a97ac",
+        "type": "function",
+        "z": "dde5902e.a2c9d",
+        "name": "Prepare map",
+        "func": "var chat = msg.chat();\n\nchat.get('selectedRestaurant')\n  .then(function(restaurant) {\n    msg.payload.latitude = restaurant.lat;\n    msg.payload.longitude = restaurant.lon;\n    console.log('mando', msg.payload)\n    node.send(msg);\n  });\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 710,
+        "y": 1080,
+        "wires": [
+            [
+                "d6244510.8d24e8"
+            ]
+        ]
+    },
+    {
+        "id": "d6244510.8d24e8",
+        "type": "chatbot-location",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "latitude": "",
+        "longitude": "",
+        "place": "",
+        "x": 880,
+        "y": 1080,
+        "wires": [
+            [
+                "6a4ad002.acddb"
+            ]
+        ]
+    },
+    {
+        "id": "6a4ad002.acddb",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [
+            "c495d887.70d8c8"
+        ],
+        "x": 1015,
+        "y": 1080,
+        "wires": []
+    },
+    {
+        "id": "e4273678.ffa628",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [
+            "ff90c4b6.4bb9b8"
+        ],
+        "x": 1333,
+        "y": 459,
+        "wires": []
+    },
+    {
+        "id": "ff90c4b6.4bb9b8",
+        "type": "link in",
+        "z": "dde5902e.a2c9d",
+        "name": "Handle conversation.rating",
+        "links": [
+            "e4273678.ffa628"
+        ],
+        "x": 155,
+        "y": 2680,
+        "wires": [
+            [
+                "ebe0630e.367c9"
+            ]
+        ]
+    },
+    {
+        "id": "cea7dca8.d541e",
+        "type": "comment",
+        "z": "dde5902e.a2c9d",
+        "name": "Handle contextual conversation.rating",
+        "info": "",
+        "x": 290,
+        "y": 2540,
+        "wires": []
+    },
+    {
+        "id": "ebe0630e.367c9",
+        "type": "chatbot-rules",
+        "z": "dde5902e.a2c9d",
+        "name": "Select topic",
+        "rules": [
+            {
+                "type": "isTopic",
+                "topic": "restaurant.list"
+            },
+            {
+                "type": "isTopic",
+                "topic": "restaurant.selected"
+            },
+            {
+                "type": "catchAll"
+            }
+        ],
+        "outputs": 3,
+        "x": 290,
+        "y": 2680,
+        "wires": [
+            [
+                "1a9dbe52.65d2c2"
+            ],
+            [
+                "ae693113.31b16"
+            ],
+            [
+                "3cfecf7a.6678c"
+            ]
+        ]
+    },
+    {
+        "id": "1a9dbe52.65d2c2",
+        "type": "chatbot-message",
+        "z": "dde5902e.a2c9d",
+        "name": "Back to restaurant list",
+        "message": [
+            {
+                "message": "Di quale ristorante mi stai chiedendo la valutazione? Scegline uno dalla lista"
+            }
+        ],
+        "answer": false,
+        "track": false,
+        "x": 520,
+        "y": 2640,
+        "wires": [
+            [
+                "bf988934.a7b9a8"
+            ]
+        ]
+    },
+    {
+        "id": "bf988934.a7b9a8",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [
+            "c495d887.70d8c8"
+        ],
+        "x": 675,
+        "y": 2640,
+        "wires": []
+    },
+    {
+        "id": "ae693113.31b16",
+        "type": "chatbot-message",
+        "z": "dde5902e.a2c9d",
+        "name": "Show rating",
+        "message": [
+            {
+                "message": "Il rating di questo ristorante è {{selectedRestaurant.rating}}"
+            },
+            {
+                "message": "Questa è la valutazione {{selectedRestaurant.rating}} dei clienti"
+            },
+            {
+                "message": "Il rating di {{selectedRestaurant.name}} è {{selectedRestaurant.rating}}"
+            }
+        ],
+        "answer": false,
+        "track": false,
+        "x": 490,
+        "y": 2680,
+        "wires": [
+            [
+                "795f352d.1a777c"
+            ]
+        ]
+    },
+    {
+        "id": "795f352d.1a777c",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [
+            "c495d887.70d8c8"
+        ],
+        "x": 675,
+        "y": 2680,
+        "wires": []
+    },
+    {
+        "id": "3cfecf7a.6678c",
+        "type": "chatbot-message",
+        "z": "dde5902e.a2c9d",
+        "name": "Generic",
+        "message": [
+            {
+                "message": "Di cosa mi stai chiedendo una valutazione? Cerca un ristorante o un posto interessante e poi rifammi la domanda"
+            }
+        ],
+        "answer": false,
+        "track": false,
+        "x": 480,
+        "y": 2720,
+        "wires": [
+            [
+                "e030725a.a4834"
+            ]
+        ]
+    },
+    {
+        "id": "e030725a.a4834",
+        "type": "link out",
+        "z": "dde5902e.a2c9d",
+        "name": "",
+        "links": [
+            "c495d887.70d8c8"
+        ],
+        "x": 675,
+        "y": 2720,
         "wires": []
     }
 ]
