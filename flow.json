@@ -13,11 +13,11 @@
         "info": "Query restaurant nearby, results payload\n\n[\n  {\n    name: 'Restaurant name' \n  },\n  // ...\n]",
         "in": [
             {
-                "x": 240,
+                "x": 60,
                 "y": 340,
                 "wires": [
                     {
-                        "id": "52a493d0.52c47c"
+                        "id": "fa46917c.ccfe7"
                     }
                 ]
             }
@@ -230,6 +230,18 @@
                 "pt": "global",
                 "to": "it",
                 "tot": "str"
+            },
+            {
+                "p": "latitude",
+                "pt": "global",
+                "to": "45.4825125",
+                "tot": "num"
+            },
+            {
+                "p": "longitude",
+                "pt": "global",
+                "to": "9.2047413",
+                "tot": "num"
             }
         ],
         "active": true,
@@ -1521,8 +1533,8 @@
         "reqType": "placesNearby",
         "googleAPI": "fb202ea2.5e9c8",
         "name": "Restaurants",
-        "lat": "45.4825125",
-        "lon": "9.2047413",
+        "lat": "",
+        "lon": "",
         "query": "",
         "radius": "",
         "rankBy": "distance",
@@ -1537,7 +1549,7 @@
         "types": "restaurant",
         "outputnumber": "5",
         "outputas": "single",
-        "x": 390,
+        "x": 450,
         "y": 340,
         "wires": [
             [
@@ -1553,7 +1565,7 @@
         "func": "var chat = msg.chat();\nconsole.log('RIsot')\n\nvar places = msg.payload;\n\nconsole.log(places[0].location)\nconsole.log('payload', places[0].payload)\n\nvar results = places.map(place => {\n  return {\n    id: place.placeid,\n    name: place.title,\n    address: place.location.vicinity,\n    lat: place.location.lat,\n    lon: place.location.lon,\n    rating: place.payload.rating,\n    opennow: place.payload.opennow\n  };\n\n});\n\nchat.set('queryRestaurants', results)\n  .then(function() {\n    msg.payload = results;\n    node.send(msg);\n  });\n\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 580,
+        "x": 640,
         "y": 340,
         "wires": [
             []
@@ -2460,5 +2472,21 @@
         "x": 1515,
         "y": 600,
         "wires": []
+    },
+    {
+        "id": "fa46917c.ccfe7",
+        "type": "function",
+        "z": "336e466f.27575a",
+        "name": "Payload for Google",
+        "func": "var latitude = context.global.latitude;\nvar longitude = context.global.longitude;\n\nmsg.location = {\n  lat: latitude,\n  lon: longitude\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 230,
+        "y": 340,
+        "wires": [
+            [
+                "52a493d0.52c47c"
+            ]
+        ]
     }
 ]
