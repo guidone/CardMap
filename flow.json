@@ -79,7 +79,6 @@
         "z": "",
         "botname": "Guidone TEST",
         "usernames": "",
-        "providerToken": "",
         "polling": "1000",
         "store": "",
         "log": "",
@@ -105,7 +104,6 @@
         "z": "",
         "botname": "CardBot TEST",
         "usernames": "",
-        "providerToken": "",
         "polling": "1000",
         "store": "3ecb4316.35e29c",
         "log": "",
@@ -205,11 +203,30 @@
         "z": "336e466f.27575a"
     },
     {
+        "id": "d895dd4c.8d62d",
+        "type": "chatbot-context-store",
+        "z": "",
+        "name": "File Production",
+        "contextStorage": "plain-file",
+        "contextParams": "{\"path\":\"/chat-contexts\"}"
+    },
+    {
+        "id": "138e9179.d7b79f",
+        "type": "chatbot-telegram-node",
+        "z": "",
+        "botname": "CardBot PRODUCTION",
+        "usernames": "",
+        "polling": "1000",
+        "store": "d895dd4c.8d62d",
+        "log": "",
+        "parseMode": ""
+    },
+    {
         "id": "2cb254d.95a19ac",
         "type": "chatbot-telegram-receive",
         "z": "dde5902e.a2c9d",
         "bot": "2e34e345.01be2c",
-        "botProduction": "",
+        "botProduction": "138e9179.d7b79f",
         "x": 210,
         "y": 300,
         "wires": [
@@ -465,7 +482,7 @@
         "type": "chatbot-telegram-send",
         "z": "dde5902e.a2c9d",
         "bot": "2e34e345.01be2c",
-        "botProduction": "",
+        "botProduction": "138e9179.d7b79f",
         "track": false,
         "outputs": 0,
         "x": 290,
