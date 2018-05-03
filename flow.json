@@ -216,11 +216,12 @@
         "z": "",
         "botname": "CardBot PRODUCTION",
         "usernames": "",
-        "providerToken": "",
+        "providerToken": "284685063:TEST:YWEyODIxMGMyZmQ1",
         "polling": "1000",
         "store": "d895dd4c.8d62d",
         "log": "",
-        "parseMode": ""
+        "parseMode": "",
+        "debug": false
     },
     {
         "id": "2cb254d.95a19ac",
@@ -1834,7 +1835,9 @@
         "type": "link out",
         "z": "dde5902e.a2c9d",
         "name": "",
-        "links": [],
+        "links": [
+            "f987ecea.f2774"
+        ],
         "x": 1515,
         "y": 480,
         "wires": []
@@ -1844,7 +1847,9 @@
         "type": "link in",
         "z": "dde5902e.a2c9d",
         "name": "Handle startover",
-        "links": [],
+        "links": [
+            "f8673d15.114b"
+        ],
         "x": 155,
         "y": 3020,
         "wires": [

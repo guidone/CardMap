@@ -22,3 +22,8 @@ CardBot
 ## Quick Links
 
 - [Google API Console](https://console.developers.google.com)
+
+## Provider Tokens
+
+- Stripe Test: 284685063:TEST:YWEyODIxMGMyZmQ1 
+- Stripe Live: 350862534:LIVE:MTQyN2U1MGUyNDVh
